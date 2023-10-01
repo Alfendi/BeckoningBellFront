@@ -30,3 +30,5 @@ export default function RootLayout({
     </html>
   )
 }
+
+// npm run build to test production build.

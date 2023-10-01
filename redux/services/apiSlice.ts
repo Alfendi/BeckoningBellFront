@@ -8,9 +8,9 @@ import { setAuth, logout } from '../features/authSlice'
 import { Mutex } from 'async-mutex'
 
 const mutex = new Mutex()
-const baseQuery = fetchBaseQuery({ 
-    baseUrl: `${process.env.NEXT_PUBLIC_HOST}/api`, // We want a cross-domain request instead.
-    credentials: 'include' // Attach cookies automatically in request.
+const baseQuery = fetchBaseQuery({
+  baseUrl: `${process.env.NEXT_PUBLIC_HOST}/api`, // We want a cross-domain request instead.
+  credentials: 'include' // Attach cookies automatically in request.
 })
 
 const baseQueryWithReauth: BaseQueryFn<
@@ -35,17 +35,16 @@ const baseQueryWithReauth: BaseQueryFn<
         )
         if (refreshResult.data) { // If successful, then API dispatch setAuth.
           api.dispatch(setAuth())
-          
+
           result = await baseQuery(args, api, extraOptions)
         } else { // If not successful, then dispatch logout.
           api.dispatch(logout())
         }
       } finally {
-        
         release()
       }
     } else {
-      
+
       await mutex.waitForUnlock()
       result = await baseQuery(args, api, extraOptions)
     }

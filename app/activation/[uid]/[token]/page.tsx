@@ -19,13 +19,15 @@ export default function Page({ params }: Props){
 
     useEffect(() => { // Called when the component mounts.
         const { uid, token } = params
-        activation({}) // Pass UID and token to this.
+        
+        activation({ uid, token }) // Pass UID and token to this.
             .unwrap()
             .then(() => {
                 toast.success('Account activated.')
             })
-            .catch(() =>
-                toast.error('Failed to activate account.'))
+            .catch(() =>{
+                toast.error('Failed to activate account.')
+            })
             .finally(() => {
                 router.push('/auth/login')
             })
@@ -38,6 +40,5 @@ export default function Page({ params }: Props){
                     Activating your account...</h1>
             </div>
         </div>
-            
     )
 }

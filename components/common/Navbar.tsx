@@ -1,7 +1,6 @@
 'use client'
 
-import Link from 'next/link'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useAppSelector, useAppDispatch } from '@/redux/hooks' // Logic for authentication.
@@ -10,7 +9,6 @@ import { logout as setLogout } from '@/redux/features/authSlice'
 import { Navlink } from '@/components/common'
 
 export default function Navbar() {
-    const router = useRouter()
     const pathname = usePathname() // Check current path.
     const dispatch = useAppDispatch()
 
@@ -24,12 +22,9 @@ export default function Navbar() {
             .then(() => {
                 dispatch(setLogout())
             })
-            .finally(() => {
-                router.push('/')
-            })
     }
 
-    const isSelected = (path: string) => pathname === path ? true : false
+    const isSelected = (path: string) => (pathname === path ? true : false)
 
     const authLinks = (isMobile: boolean) => ( // Expect guestLinks to receive a parameter.
         <>

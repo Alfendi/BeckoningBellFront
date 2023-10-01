@@ -1,9 +1,9 @@
 import { apiSlice } from "../services/apiSlice"
 
-interface User{ // Gives typing when retrieving User.
-    first_name: string
-    last_name: string
-    email: string
+interface User { // Gives typing when retrieving User.
+	first_name: string
+	last_name: string
+	email: string
 }
 
 interface SocialAuthArgs {
@@ -18,38 +18,38 @@ interface CreateUserResponse {
 }
 
 const authApiSlice = apiSlice.injectEndpoints({ // Injecting endpoints here instead of in apiSlice, separation of concerns.
-    endpoints: builder => ({
-        retrieveUser: builder.query<User, void>({ // Can set up both queries and mutations. Queries are for when we get data, mutations are like sending data/POST requests.
-            query: () => '/users/me/'
-        }),
-        socialAuthenticate: builder.mutation< // When we want multiple parameters in Redux, we need to pass them as objects.
-            CreateUserResponse,
-            SocialAuthArgs
-            >({
-            query: ({provider, state, code}) => ({
-                url: `/o/${provider}/?state=${encodeURIComponent(state)}&code=${encodeURIComponent(code)}`, // Passing in the URL instead of in the body of the request.
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            })
-        }),
-        login: builder.mutation({
-            query: ({ email, password }) => ({
-                url: '/jwt/create/',
-                method: 'POST',
-                body: { email, password }
-            })
-        }),
-        register: builder.mutation({
-            query: ({ first_name, last_name, email, password, re_password }) => ({
-                url: '/users/',
-                method: 'POST',
-                body: { first_name, last_name, email, password, re_password }
-            })
-        }),
-        verify: builder.mutation({
+	endpoints: builder => ({
+		retrieveUser: builder.query<User, void>({ // Can set up both queries and mutations. Queries are for when we get data, mutations are like sending data/POST requests.
+			query: () => '/users/me/'
+		}),
+		socialAuthenticate: builder.mutation< // When we want multiple parameters in Redux, we need to pass them as objects.
+			CreateUserResponse,
+			SocialAuthArgs
+		>({
+			query: ({ provider, state, code }) => ({
+				url: `/o/${provider}/?state=${encodeURIComponent(state)}&code=${encodeURIComponent(code)}`, // Passing in the URL instead of in the body of the request.
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			})
+		}),
+		login: builder.mutation({
+			query: ({ email, password }) => ({
+				url: '/jwt/create/',
+				method: 'POST',
+				body: { email, password }
+			})
+		}),
+		register: builder.mutation({
+			query: ({ first_name, last_name, email, password, re_password }) => ({
+				url: '/users/',
+				method: 'POST',
+				body: { first_name, last_name, email, password, re_password }
+			})
+		}),
+		verify: builder.mutation({
 			query: () => ({
 				url: '/jwt/verify/',
 				method: 'POST'
@@ -82,12 +82,12 @@ const authApiSlice = apiSlice.injectEndpoints({ // Injecting endpoints here inst
 				body: { uid, token, new_password, re_new_password }
 			})
 		})
-    })
+	})
 })
 
-export const { useRetrieveUserQuery, 
-    useSocialAuthenticateMutation,
-    useLoginMutation,
+export const { useRetrieveUserQuery,
+	useSocialAuthenticateMutation,
+	useLoginMutation,
 	useRegisterMutation,
 	useVerifyMutation,
 	useLogoutMutation,

@@ -1,9 +1,9 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit"
+import { configureStore} from "@reduxjs/toolkit"
 import { apiSlice } from "./services/apiSlice"
 import authReducer from "./features/authSlice"
 
 // Configures store. If we have node environment set to production, then we're not going to show the devTools. Otherwise, we will not show it for safety.
-export const makeStore = () =>
+export const store =
     configureStore({
         reducer: {
             [apiSlice.reducerPath]: apiSlice.reducer,
@@ -11,10 +11,10 @@ export const makeStore = () =>
         },
         middleware: getDefaultMiddleware => // Needed for RTK Query to work.
             getDefaultMiddleware().concat(apiSlice.middleware),
-        devTools: process.env.NODE_ENV !== 'production',
-    })
+        devTools: process.env.NODE_ENV !== 'production'
+        // devTools: true
+})
 
 // This is for TS.
-export type AppStore = ReturnType<typeof makeStore>
-export type RootState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch']
+export type RootState = ReturnType<(typeof store)['getState']>
+export type AppDispatch = (typeof store)['dispatch']
