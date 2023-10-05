@@ -5,7 +5,7 @@ import { useLogin } from '@/hooks'
 
 export default function LoginForm(){
     const {
-        email, 
+        username,
         password, 
         isLoading,
         onChange,
@@ -14,10 +14,10 @@ export default function LoginForm(){
 
     const config = [
         {
-            labelText: 'Email',
-            labelId: 'email',
-            type: 'email',
-            value: email,
+            labelText: 'Username',
+            labelId: 'username',
+            type: 'username',
+            value: username,
             required: true
         },
         {

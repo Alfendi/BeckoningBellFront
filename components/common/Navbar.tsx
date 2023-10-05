@@ -29,10 +29,10 @@ export default function Navbar() {
     const authLinks = (isMobile: boolean) => ( // Expect guestLinks to receive a parameter.
         <>
             <Navlink
-                isSelected={isSelected('/dashboard')}
+                isSelected={isSelected('/home')}
                 isMobile={isMobile}
-                href='/dashboard'>
-                Dashboard
+                href='/home'>
+                Home
             </Navlink>
             <Navlink
                 isMobile={isMobile}

@@ -39,8 +39,6 @@ export default function Navlink({
 		)
 	}
 
-
-
     return (
 		<Link className={className} href={href}>
 			{children}

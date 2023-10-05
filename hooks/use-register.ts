@@ -10,14 +10,13 @@ export default function useRegister() {
     const [register, { isLoading }] = useRegisterMutation()
 
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
+        username: '',
         email: '',
         password: '',
         re_password: '',
     })
 
-    const { first_name, last_name, email, password, re_password } = formData // Destructuring the fields because each input field will need a value and an onChange handler.
+    const { username, email, password, re_password } = formData // Destructuring the fields because each input field will need a value and an onChange handler.
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) =>{
         const { name, value } = event.target
@@ -28,7 +27,7 @@ export default function useRegister() {
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        register({ first_name, last_name, email, password, re_password })  // Passed as one argument as an object.
+        register({ username, email, password, re_password })  // Passed as one argument as an object.
             .unwrap()
             .then(() => { // If successful.
                 toast.success('Please check your email to activate account.')
@@ -40,8 +39,7 @@ export default function useRegister() {
     }
 
     return {
-        first_name, 
-        last_name, 
+        username,
         email, 
         password, 
         re_password,

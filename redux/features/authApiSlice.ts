@@ -1,8 +1,7 @@
 import { apiSlice } from "../services/apiSlice"
 
 interface User { // Gives typing when retrieving User.
-	first_name: string
-	last_name: string
+	username: string
 	email: string
 }
 
@@ -36,17 +35,17 @@ const authApiSlice = apiSlice.injectEndpoints({ // Injecting endpoints here inst
 			})
 		}),
 		login: builder.mutation({
-			query: ({ email, password }) => ({
+			query: ({ username, password }) => ({
 				url: '/jwt/create/',
 				method: 'POST',
-				body: { email, password }
+				body: { username, password }
 			})
 		}),
 		register: builder.mutation({
-			query: ({ first_name, last_name, email, password, re_password }) => ({
+			query: ({ username, email, password, re_password }) => ({
 				url: '/users/',
 				method: 'POST',
-				body: { first_name, last_name, email, password, re_password }
+				body: { username, email, password, re_password }
 			})
 		}),
 		verify: builder.mutation({

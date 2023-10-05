@@ -5,8 +5,7 @@ import { useRegister } from '@/hooks'
 
 export default function RegisterForm(){
     const {
-        first_name, 
-        last_name, 
+        username, 
         email, 
         password, 
         re_password,
@@ -17,17 +16,10 @@ export default function RegisterForm(){
 
     const config = [
         {
-            labelText: 'First Name',
-            labelId: 'first_name',
+            labelText: 'Username',
+            labelId: 'username',
             type: 'text',
-            value: first_name,
-            required: true
-        },
-        {
-            labelText: 'Last Name',
-            labelId: 'last_name',
-            type: 'text',
-            value: last_name,
+            value: username,
             required: true
         },
         {

@@ -11,7 +11,7 @@ export default function useSocialAuth(authenticate: any, provider: string) {// C
 
     const effectRan = useRef(false) // Makes sure code runs only once.
 
-    useEffect(() => { // If login succeeds, send to dashboard. Otherwise, redirect to login page.
+    useEffect(() => { // If login succeeds, send to home page. Otherwise, redirect to login page.
         const state = searchParams.get('state')
         const code = searchParams.get('code')
 
@@ -21,7 +21,7 @@ export default function useSocialAuth(authenticate: any, provider: string) {// C
                 .then(() => {
                     dispatch(setAuth())
                     toast.success('Logged in!')
-                    router.push('/dashboard')
+                    router.push('/home')
                 })
                 .catch(() => {
                     toast.error('Failed to login. Please try again.')

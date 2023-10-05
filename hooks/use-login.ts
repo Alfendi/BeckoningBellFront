@@ -12,11 +12,11 @@ export default function useLogin() {
     const [login, { isLoading }] = useLoginMutation()
 
     const [formData, setFormData] = useState({
-        email: '',
+        username: '',
         password: '',
     })
 
-    const { email, password } = formData // Destructuring the fields because each input field will need a value and an onChange handler.
+    const { username, password } = formData // Destructuring the fields because each input field will need a value and an onChange handler.
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) =>{
         const { name, value } = event.target
@@ -27,12 +27,12 @@ export default function useLogin() {
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        login({ email, password })  // Passed as one argument as object.
+        login({ username, password })  // Passed as one argument as object.
             .unwrap()
             .then(() => { // If successful, dispatch setAuth.
                 dispatch(setAuth())
                 toast.success('Logged in.')
-                router.push('/dashboard')
+                router.push('/home')
             })
             .catch(() => { // If not successful.
                 toast.error('Failed to login. Please try again.')
@@ -40,7 +40,7 @@ export default function useLogin() {
     }
 
     return {
-        email, 
+        username, 
         password, 
         isLoading,
         onChange,
